@@ -6,6 +6,8 @@
 
 void run_example();
 
+// Implements a vector (called JArray) from a C array.
+
 int main(int argc, char* argv[]) {
 
   run_all_tests();
