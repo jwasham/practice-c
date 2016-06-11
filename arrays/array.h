@@ -33,6 +33,7 @@ void jarray_prepend(JArray * arrptr, int value);
 int jarray_pop(JArray *arrptr);
 void jarray_delete(JArray *arrptr, int index);
 void jarray_remove(JArray *arrptr, int value);
+int jarray_find(JArray *arrptr, int value);
 
 // tests
 
@@ -49,5 +50,7 @@ void test_insert();
 void test_prepend();
 void test_pop();
 void test_remove();
+void test_find_exists();
+void test_find_not_exists();
 
 #endif  // PROJECT_ARRAY_H

@@ -68,18 +68,15 @@ void jarray_downsize(JArray *arrptr) {
 
 int jarray_determine_up_capacity(int capacity) {
   const int kMinInitialCapacity = 1;
-  int true_capacity = 16;
+  int true_capacity = kMinCapacity;
 
   if (capacity < kMinInitialCapacity) {
     exit(EXIT_FAILURE);
   }
 
-  int power = kMinCapacity;
-  while (capacity > power / 2) {
-    power *= 2;
+  while (capacity > true_capacity / 2) {
+    true_capacity *= 2;
   }
-
-  true_capacity = power;
 
   return true_capacity;
 }
@@ -195,6 +192,18 @@ void jarray_remove(JArray *arrptr, int value) {
   }
 }
 
+int jarray_find(JArray *arrptr, int value) {
+  int found_index = -1;
+
+  for (int i = 0; i < arrptr->size; i++) {
+    if (*(arrptr->data + i) == value) {
+      found_index = i;
+    }
+  }
+
+  return found_index;
+}
+
 //=========== tests ===================================
 
 void run_all_tests() {
@@ -206,7 +215,9 @@ void run_all_tests() {
   test_insert();
   test_prepend();
   test_pop();
-  void test_remove();
+  test_remove();
+  test_find_exists();
+  test_find_not_exists();
 }
 
 void test_size_init() {
@@ -311,5 +322,27 @@ void test_remove() {
   jarray_push(aptr, 12);
   jarray_remove(aptr, 12);
   assert(jarray_size(aptr) == 2);
+  jarray_destroy(aptr);
+}
+
+void test_find_exists() {
+  JArray *aptr = jarray_new(5);
+  jarray_push(aptr, 1);
+  jarray_push(aptr, 2);
+  jarray_push(aptr, 3);
+  jarray_push(aptr, 4);
+  jarray_push(aptr, 5);
+  assert(jarray_find(aptr, 1) == 0);
+  assert(jarray_find(aptr, 4) == 3);
+  assert(jarray_find(aptr, 5) == 4);
+  jarray_destroy(aptr);
+}
+
+void test_find_not_exists() {
+  JArray *aptr = jarray_new(3);
+  jarray_push(aptr, 1);
+  jarray_push(aptr, 2);
+  jarray_push(aptr, 3);
+  assert(jarray_find(aptr, 7) == -1);
   jarray_destroy(aptr);
 }
