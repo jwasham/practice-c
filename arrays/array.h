@@ -19,7 +19,7 @@ JArray *jarray_new(int capacity);
 void jarray_destroy(JArray *arrptr);
 
 void jarray_resize_for_size(JArray *arrptr, int candidate_size);
-int jarray_determine_up_capacity(int capacity);
+int jarray_determine_capacity(int capacity);
 void jarray_upsize(JArray *arrptr);
 void jarray_downsize(JArray *arrptr);
 int jarray_size(JArray *arrptr);

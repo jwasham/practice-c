@@ -1,7 +1,7 @@
 // array
 
 JArray *jarray_new(int capacity) {
-  int true_capacity = jarray_determine_up_capacity(capacity);
+  int true_capacity = jarray_determine_capacity(capacity);
 
   JArray *arr = malloc(sizeof(JArray));
   arr->size = 0;
@@ -25,7 +25,7 @@ void jarray_resize_for_size(JArray *arrptr, int candidate_size) {
 
 void jarray_upsize(JArray *arrptr) {
   int old_capacity = arrptr->capacity;
-  int new_capacity = jarray_determine_up_capacity(old_capacity);
+  int new_capacity = jarray_determine_capacity(old_capacity);
 
   printf("Resizing from %d to %d\n", old_capacity, new_capacity);
 
@@ -66,7 +66,7 @@ void jarray_downsize(JArray *arrptr) {
   }
 }
 
-int jarray_determine_up_capacity(int capacity) {
+int jarray_determine_capacity(int capacity) {
   const int kMinInitialCapacity = 1;
   int true_capacity = kMinCapacity;
 
