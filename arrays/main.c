@@ -27,13 +27,33 @@ void run_example() {
 
   JArray *aptr = jarray_new(capacity);
 
-  int append_success = 0;
   for (int d = 1; d <= capacity; ++d) {
-    append_success = jarray_append(aptr, d);
-    if (! append_success) {
-      printf("No more room.\n");
-    }
+    jarray_push(aptr, d);
   }
+
+  int insert_value = 999;
+  printf(" - Inserting %d at index %d.\n", insert_value, capacity - 1);
+  jarray_insert(aptr, capacity - 1, insert_value);
+
+  printf(" - Prepending %d.\n", 12);
+  jarray_prepend(aptr, 12);
+
+  printf(" - Popping an item: %d\n", jarray_pop(aptr));
+
+  jarray_print(aptr);
+
+  int index_to_remove = jarray_size(aptr) - 3;
+  printf(" - Deleting from index %d\n", index_to_remove);
+  jarray_delete(aptr, index_to_remove);
+
+  jarray_push(aptr, 12);
+  jarray_push(aptr, 12);
+
+  jarray_print(aptr);
+
+  printf(" - Deleting 12s\n");
+
+  jarray_remove(aptr, 12);
 
   jarray_print(aptr);
 
