@@ -2,14 +2,51 @@
 
 JArray * jarray_new(int capacity) {
 
-  // allocate a size as a power of 2
+  int true_capacity = jarray_determine_capacity(capacity);
 
   JArray *arr = malloc(sizeof(JArray));
   arr->size = 0;
-  arr->capacity = capacity;
-  arr->data = (int *) malloc(sizeof(int) * capacity);
+  arr->capacity = true_capacity;
+  arr->data = (int *) malloc(sizeof(int) * true_capacity);
 
   return arr;
+}
+
+int jarray_determine_capacity(int capacity) {
+
+  const int kMinInitialCapacity = 1;
+  const int kMinCapacity = 16;
+  int true_capacity = 16;
+
+  if (capacity < kMinInitialCapacity) {
+    exit(EXIT_FAILURE);
+  }
+
+  int power = kMinCapacity;
+  while (capacity > power/2) {
+    power *= 2;
+  }
+
+  true_capacity = power;
+
+  return true_capacity;
+}
+
+void jarray_resize(JArray *arrptr) {
+
+  int old_capacity = arrptr->capacity;
+  int new_capacity = jarray_determine_capacity(old_capacity);
+
+  int *new_data = (int *) malloc(sizeof(int) * new_capacity);
+
+  for (int i = 0; i < old_capacity; i++) {
+    *(new_data + i) = *(arrptr->data + i);
+  }
+
+  free(arrptr->data);
+
+  arrptr->data = new_data;
+  arrptr->capacity = new_capacity;
 }
 
 int jarray_size(JArray *arrptr) {
@@ -26,6 +63,11 @@ bool jarray_append(JArray * arrptr, int item) {
 
   int success = 0;
 
+  if (arrptr->size == arrptr->capacity) {
+    // time to double
+    jarray_resize(arrptr);
+  }
+
   if (arrptr->size < arrptr->capacity) {
     *(arrptr->data + arrptr->size) = item;
     arrptr->size += 1;
@@ -38,11 +80,11 @@ bool jarray_append(JArray * arrptr, int item) {
 void jarray_print(JArray *arrptr) {
   printf("Size: %d\n", arrptr->size);
   printf("Capacity: %d\n", arrptr->capacity);
-  printf("Items:\n");
 
-  for (int i = 0; i < arrptr->size; ++i) {
-    printf("%d: %d\n", i, *(arrptr->data + i));
-  }
+//  printf("Items:\n");
+//  for (int i = 0; i < arrptr->size; ++i) {
+//    printf("%d: %d\n", i, *(arrptr->data + i));
+//  }
 
   printf("---------\n");
 }
@@ -66,9 +108,8 @@ bool jarray_is_empty(JArray *arrptr) {
 void run_all_tests() {
   test_size_init();
   test_append();
-  test_append_past_capacity();
-  test_capacity();
   test_empty();
+  test_resize();
 }
 
 void test_size_init() {
@@ -87,22 +128,19 @@ void test_append() {
   jarray_destroy(aptr);
 }
 
-void test_append_past_capacity() {
-  JArray * aptr = jarray_new(3);
-  jarray_append(aptr, 10);
-  jarray_append(aptr, 6);
-  jarray_append(aptr, 5);
-  jarray_append(aptr, 11);
-  int new_size = jarray_size(aptr);
-  assert(new_size == 3);
-  jarray_destroy(aptr);
-}
+void test_resize() {
+  JArray * aptr = jarray_new(2);
 
-void test_capacity() {
-  JArray * aptr = jarray_new(3);
-  jarray_append(aptr, 10);
-  int capacity = jarray_capacity(aptr);
-  assert(capacity == 3);
+  int old_capacity = jarray_capacity(aptr);
+  assert(old_capacity == 16);
+
+  // forces a resize
+  for (int i = 0; i < 18; i++) {
+    jarray_append(aptr, i + 1);
+  }
+
+  int new_capacity = jarray_capacity(aptr);
+  assert(new_capacity == 32);
   jarray_destroy(aptr);
 }
 

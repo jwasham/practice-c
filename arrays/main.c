@@ -13,11 +13,11 @@ int main(int argc, char* argv[]) {
   run_all_tests();
   run_example();
 
-  return 0;
+  return EXIT_SUCCESS;
 }
 
 void run_example() {
-  int capacity;
+  int capacity = 0;
 
   printf("Enter many numbers would you like to store: ");
   scanf("%d", &capacity);

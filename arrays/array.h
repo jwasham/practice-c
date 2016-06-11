@@ -14,6 +14,8 @@ typedef struct JWImplementationArray {
 JArray *jarray_new(int capacity);
 void jarray_destroy(JArray *arrptr);
 
+int jarray_determine_capacity(int capacity);
+void resize(JArray *arrptr);
 int jarray_size(JArray *arrptr);
 bool jarray_append(JArray *arrptr, int item);
 void jarray_print(JArray *arrptr);
@@ -29,5 +31,6 @@ void test_size_init();
 void test_append_past_capacity();
 void test_capacity();
 void test_empty();
+void test_resize();
 
 #endif  // PROJECT_9894_ARRAYS_ARRAY_H
