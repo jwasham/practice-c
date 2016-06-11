@@ -1,6 +1,5 @@
 #include <stdio.h>  // for IO
 #include <stdlib.h> // for malloc
-#include <assert.h>
 #include "array.h"
 #include "array.c"
 

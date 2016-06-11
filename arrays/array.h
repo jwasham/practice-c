@@ -1,5 +1,7 @@
-#ifndef PROJECT_9894_ARRAYS_ARRAY_H
-#define PROJECT_9894_ARRAYS_ARRAY_H
+#ifndef PROJECT_ARRAY_H
+#define PROJECT_ARRAY_H
+
+#include <assert.h>
 
 typedef int bool;
 
@@ -33,4 +35,4 @@ void test_capacity();
 void test_empty();
 void test_resize();
 
-#endif  // PROJECT_9894_ARRAYS_ARRAY_H
+#endif  // PROJECT_ARRAY_H
