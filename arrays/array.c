@@ -31,7 +31,7 @@ void jarray_upsize(JArray *arrptr) {
 
   int *new_data = (int *)malloc(sizeof(int) * new_capacity);
 
-  for (int i = 0; i < old_capacity; i++) {
+  for (int i = 0; i < old_capacity; ++i) {
     *(new_data + i) = *(arrptr->data + i);
   }
 
@@ -55,7 +55,7 @@ void jarray_downsize(JArray *arrptr) {
 
     int *new_data = (int *) malloc(sizeof(int) * new_capacity);
 
-    for (int i = 0; i < arrptr->size; i++) {
+    for (int i = 0; i < arrptr->size; ++i) {
       *(new_data + i) = *(arrptr->data + i);
     }
 
@@ -175,7 +175,7 @@ void jarray_delete(JArray *arrptr, int index) {
   jarray_resize_for_size(arrptr, arrptr->size - 1);
 
   int end_index = arrptr->size - 1;
-  for (int i = index; i < end_index; i++) {
+  for (int i = index; i < end_index; ++i) {
     *(arrptr->data + i) = *(arrptr->data + i + 1);
   }
 
@@ -183,7 +183,7 @@ void jarray_delete(JArray *arrptr, int index) {
 }
 
 void jarray_remove(JArray *arrptr, int value) {
-  for (int i = 0; i < arrptr->size; i++) {
+  for (int i = 0; i < arrptr->size; ++i) {
     int check_value = *(arrptr->data + i);
     if (check_value == value) {
       jarray_delete(arrptr, i);
@@ -195,7 +195,7 @@ void jarray_remove(JArray *arrptr, int value) {
 int jarray_find(JArray *arrptr, int value) {
   int found_index = -1;
 
-  for (int i = 0; i < arrptr->size; i++) {
+  for (int i = 0; i < arrptr->size; ++i) {
     if (*(arrptr->data + i) == value) {
       found_index = i;
     }
@@ -243,14 +243,14 @@ void test_resize() {
   assert(old_capacity == 16);
 
   // forces a resize up
-  for (int i = 0; i < 18; i++) {
+  for (int i = 0; i < 18; ++i) {
     jarray_push(aptr, i + 1);
   }
 
   assert(jarray_capacity(aptr) == 32);
 
   // forces a resize down
-  for (int j = 0; j < 15; j++) {
+  for (int j = 0; j < 15; ++j) {
     jarray_pop(aptr);
   }
 
@@ -271,7 +271,7 @@ void test_empty() {
 
 void test_at() {
   JArray *aptr = jarray_new(12);
-  for (int i = 0; i < 12; i++) {
+  for (int i = 0; i < 12; ++i) {
     jarray_push(aptr, i + 3);
   }
   assert(jarray_at(aptr, 6) == 9);
@@ -280,7 +280,7 @@ void test_at() {
 
 void test_insert() {
   JArray *aptr = jarray_new(5);
-  for (int i = 0; i < 5; i++) {
+  for (int i = 0; i < 5; ++i) {
     jarray_push(aptr, i + 5);
   }
   jarray_insert(aptr, 2, 47);
@@ -291,7 +291,7 @@ void test_insert() {
 
 void test_prepend() {
   JArray *aptr = jarray_new(5);
-  for (int i = 0; i < 3; i++) {
+  for (int i = 0; i < 3; ++i) {
     jarray_push(aptr, i + 1);
   }
   jarray_prepend(aptr, 15);
@@ -302,11 +302,11 @@ void test_prepend() {
 
 void test_pop() {
   JArray *aptr = jarray_new(5);
-  for (int i = 0; i < 3; i++) {
+  for (int i = 0; i < 3; ++i) {
     jarray_push(aptr, i + 1);
   }
   assert(aptr->size == 3);
-  for (int j = 0; j < 3; j++) {
+  for (int j = 0; j < 3; ++j) {
     jarray_pop(aptr);
   }
   assert(jarray_is_empty(aptr) == 1);
