@@ -1,5 +1,7 @@
 // vector implementation
 
+// Creates a new JArray (vector in our case) to accommodate
+//    the given initial capacity.
 JArray *jarray_new(int capacity) {
   int true_capacity = jarray_determine_capacity(capacity);
 
@@ -11,6 +13,8 @@ JArray *jarray_new(int capacity) {
   return arr;
 }
 
+// Checks to see if resizing is needed to support the candidate_size
+//    and resizes to accommodate.
 void jarray_resize_for_size(JArray *arrptr, int candidate_size) {
   if (arrptr->size < candidate_size) {  // growing
     if (arrptr->size == arrptr->capacity) {
@@ -23,6 +27,7 @@ void jarray_resize_for_size(JArray *arrptr, int candidate_size) {
   }  // will not be equal, if so, will do nothing
 }
 
+// Increases the array size to size determined by growth factor
 void jarray_upsize(JArray *arrptr) {
   int old_capacity = arrptr->capacity;
   int new_capacity = jarray_determine_capacity(old_capacity);
@@ -39,6 +44,7 @@ void jarray_upsize(JArray *arrptr) {
   arrptr->capacity = new_capacity;
 }
 
+// Decreases the array size to size determined by growth factor
 void jarray_downsize(JArray *arrptr) {
   int old_capacity = arrptr->capacity;
   int new_capacity = arrptr->capacity / kGrowthFactor;
@@ -48,7 +54,6 @@ void jarray_downsize(JArray *arrptr) {
   }
 
   if (new_capacity != old_capacity) {
-
     int *new_data = (int *)malloc(sizeof(int) * new_capacity);
 
     for (int i = 0; i < arrptr->size; ++i) {
@@ -62,6 +67,8 @@ void jarray_downsize(JArray *arrptr) {
   }
 }
 
+// Determines the actual capacity (in terms of the power of growth factor)
+//    required to accomodate a given capacity.
 int jarray_determine_capacity(int capacity) {
   const int kMinInitialCapacity = 1;
   int true_capacity = kMinCapacity;
@@ -77,6 +84,7 @@ int jarray_determine_capacity(int capacity) {
   return true_capacity;
 }
 
+// Returns the number of elements managed in the array.
 int jarray_size(JArray *arrptr) { return arrptr->size; }
 
 void jarray_destroy(JArray *arrptr) {
@@ -84,6 +92,7 @@ void jarray_destroy(JArray *arrptr) {
   free(arrptr);
 }
 
+// Appends the given item to the end of the array.
 void jarray_push(JArray *arrptr, int item) {
   jarray_resize_for_size(arrptr, arrptr->size + 1);
 
@@ -91,6 +100,7 @@ void jarray_push(JArray *arrptr, int item) {
   ++(arrptr->size);
 }
 
+// Prints public information about the array for debug purposes.
 void jarray_print(JArray *arrptr) {
   printf("Size: %d\n", arrptr->size);
   printf("Capacity: %d\n", arrptr->capacity);
@@ -103,6 +113,7 @@ void jarray_print(JArray *arrptr) {
   printf("---------\n");
 }
 
+// Returns the actual capacity the array can accommodate.
 int jarray_capacity(JArray *arrptr) { return arrptr->capacity; }
 
 bool jarray_is_empty(JArray *arrptr) {
@@ -115,6 +126,7 @@ bool jarray_is_empty(JArray *arrptr) {
   return is_empty;
 }
 
+// Returns the value stored at the given index.
 int jarray_at(JArray *arrptr, int index) {
   if (index < 0 || index > arrptr->size - 1) {
     exit(EXIT_FAILURE);
@@ -123,6 +135,8 @@ int jarray_at(JArray *arrptr, int index) {
   return *(arrptr->data + index);
 }
 
+// Inserts the given value at the given index, shifting
+//    current and trailing elements to the right.
 void jarray_insert(JArray *arrptr, int index, int value) {
   if (index < 0 || index > arrptr->size - 1) {
     exit(EXIT_FAILURE);
@@ -144,10 +158,13 @@ void jarray_insert(JArray *arrptr, int index, int value) {
   arrptr->size += 1;
 }
 
+// Prepends the given value to the array, shifting trailing
+//    elements to the right.
 void jarray_prepend(JArray *arrptr, int value) {
   jarray_insert(arrptr, 0, value);
 }
 
+// Removes the last item from the array.
 int jarray_pop(JArray *arrptr) {
   if (arrptr->size == 0) {
     exit(EXIT_FAILURE);
@@ -161,6 +178,8 @@ int jarray_pop(JArray *arrptr) {
   return popped_value;
 }
 
+// Deletes the item stored at the given index, shifting trailing
+//    elements to the left.
 void jarray_delete(JArray *arrptr, int index) {
   if (index < 0 || index >= arrptr->size) {
     exit(EXIT_FAILURE);
@@ -176,6 +195,7 @@ void jarray_delete(JArray *arrptr, int index) {
   --(arrptr->size);
 }
 
+// Removes the given value from the array, even if it appears more than once.
 void jarray_remove(JArray *arrptr, int value) {
   for (int i = 0; i < arrptr->size; ++i) {
     int check_value = *(arrptr->data + i);
@@ -186,6 +206,7 @@ void jarray_remove(JArray *arrptr, int value) {
   }
 }
 
+// Returns the index of the first occurrence of the given value in the array.
 int jarray_find(JArray *arrptr, int value) {
   int found_index = -1;
 

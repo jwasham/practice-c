@@ -1,5 +1,5 @@
-#include <stdio.h>  // for IO
-#include <stdlib.h> // for malloc
+#include <stdio.h>   // for IO
+#include <stdlib.h>  // for malloc
 #include "array.h"
 #include "array.c"
 
@@ -8,7 +8,6 @@ void run_example();
 // Implements a vector (called JArray) from a C array.
 
 int main(int argc, char* argv[]) {
-
   run_all_tests();
   run_example();
 
@@ -25,7 +24,7 @@ void run_example() {
 
   // make it so
 
-  JArray *aptr = jarray_new(capacity);
+  JArray* aptr = jarray_new(capacity);
 
   for (int d = 1; d <= capacity; ++d) {
     jarray_push(aptr, d);
