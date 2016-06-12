@@ -1,4 +1,4 @@
-// array
+// vector implementation
 
 JArray *jarray_new(int capacity) {
   int true_capacity = jarray_determine_capacity(capacity);
@@ -16,18 +16,16 @@ void jarray_resize_for_size(JArray *arrptr, int candidate_size) {
     if (arrptr->size == arrptr->capacity) {
       jarray_upsize(arrptr);
     }
-  } else if (arrptr->size > candidate_size) { // shrinking
-    if (arrptr->size < arrptr->capacity / 4) {
+  } else if (arrptr->size > candidate_size) {  // shrinking
+    if (arrptr->size < arrptr->capacity / kShrinkFactor) {
       jarray_downsize(arrptr);
     }
-  } // will not be equal, if so, will do nothing
+  }  // will not be equal, if so, will do nothing
 }
 
 void jarray_upsize(JArray *arrptr) {
   int old_capacity = arrptr->capacity;
   int new_capacity = jarray_determine_capacity(old_capacity);
-
-  printf("Resizing from %d to %d\n", old_capacity, new_capacity);
 
   int *new_data = (int *)malloc(sizeof(int) * new_capacity);
 
@@ -43,7 +41,7 @@ void jarray_upsize(JArray *arrptr) {
 
 void jarray_downsize(JArray *arrptr) {
   int old_capacity = arrptr->capacity;
-  int new_capacity = arrptr->capacity / 2;
+  int new_capacity = arrptr->capacity / kGrowthFactor;
 
   if (new_capacity < kMinCapacity) {
     new_capacity = kMinCapacity;
@@ -51,9 +49,7 @@ void jarray_downsize(JArray *arrptr) {
 
   if (new_capacity != old_capacity) {
 
-    printf("Resizing from %d to %d\n", old_capacity, new_capacity);
-
-    int *new_data = (int *) malloc(sizeof(int) * new_capacity);
+    int *new_data = (int *)malloc(sizeof(int) * new_capacity);
 
     for (int i = 0; i < arrptr->size; ++i) {
       *(new_data + i) = *(arrptr->data + i);
@@ -74,8 +70,8 @@ int jarray_determine_capacity(int capacity) {
     exit(EXIT_FAILURE);
   }
 
-  while (capacity > true_capacity / 2) {
-    true_capacity *= 2;
+  while (capacity > true_capacity / kGrowthFactor) {
+    true_capacity *= kGrowthFactor;
   }
 
   return true_capacity;
@@ -84,7 +80,6 @@ int jarray_determine_capacity(int capacity) {
 int jarray_size(JArray *arrptr) { return arrptr->size; }
 
 void jarray_destroy(JArray *arrptr) {
-  //  printf("** Freeing memory **\n");
   free(arrptr->data);
   free(arrptr);
 }
@@ -128,8 +123,7 @@ int jarray_at(JArray *arrptr, int index) {
   return *(arrptr->data + index);
 }
 
-void jarray_insert(JArray * arrptr, int index, int value) {
-
+void jarray_insert(JArray *arrptr, int index, int value) {
   if (index < 0 || index > arrptr->size - 1) {
     exit(EXIT_FAILURE);
   }
@@ -187,7 +181,7 @@ void jarray_remove(JArray *arrptr, int value) {
     int check_value = *(arrptr->data + i);
     if (check_value == value) {
       jarray_delete(arrptr, i);
-      --i; // to recheck the index we just copied data into.
+      --i;  // to recheck the index we just copied data into.
     }
   }
 }

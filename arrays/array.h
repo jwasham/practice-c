@@ -6,6 +6,8 @@
 typedef int bool;
 
 const int kMinCapacity = 16;
+const int kGrowthFactor = 2;
+const int kShrinkFactor = 4;
 
 typedef struct JWImplementationArray {
   int size;
