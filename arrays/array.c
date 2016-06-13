@@ -191,6 +191,7 @@ int jarray_find(JArray *arrptr, int value) {
   for (int i = 0; i < arrptr->size; ++i) {
     if (*(arrptr->data + i) == value) {
       found_index = i;
+      break;
     }
   }
 
