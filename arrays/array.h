@@ -2,8 +2,7 @@
 #define PROJECT_ARRAY_H
 
 #include <assert.h>
-
-typedef int bool;
+#include <stdbool.h>
 
 const int kMinCapacity = 16;
 const int kGrowthFactor = 2;

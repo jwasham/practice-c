@@ -1,7 +1,9 @@
+#include <stdbool.h>
+
 #ifndef PROJECT_LINKED_LIST_H
 #define PROJECT_LINKED_LIST_H
 
-typedef int bool;
+//typedef int bool;
 
 struct SingleNode {
   int data;
