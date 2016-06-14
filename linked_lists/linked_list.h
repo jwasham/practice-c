@@ -43,5 +43,7 @@ void jforward_list_insert(JForwardList *jlist, int index, int value);
 int jforward_list_value_at(JForwardList *jlist, int index);
 // Removes node at given index
 void jforward_list_erase(JForwardList *jlist, int index);
+// Checks to see if given value is valid for memory, and exits if so
+void check_address(void *p);
 
 #endif  // PROJECT_LINKED_LIST_H

@@ -4,9 +4,12 @@ JArray *jarray_new(int capacity) {
   int true_capacity = jarray_determine_capacity(capacity);
 
   JArray *arr = malloc(sizeof(JArray));
+  check_address(arr);
+
   arr->size = 0;
   arr->capacity = true_capacity;
   arr->data = (int *)malloc(sizeof(int) * true_capacity);
+  check_address(arr->data);
 
   return arr;
 }
@@ -28,6 +31,7 @@ void jarray_upsize(JArray *arrptr) {
   int new_capacity = jarray_determine_capacity(old_capacity);
 
   int *new_data = (int *)malloc(sizeof(int) * new_capacity);
+  check_address(new_data);
 
   for (int i = 0; i < old_capacity; ++i) {
     *(new_data + i) = *(arrptr->data + i);
@@ -49,6 +53,7 @@ void jarray_downsize(JArray *arrptr) {
 
   if (new_capacity != old_capacity) {
     int *new_data = (int *)malloc(sizeof(int) * new_capacity);
+    check_address(new_data);
 
     for (int i = 0; i < arrptr->size; ++i) {
       *(new_data + i) = *(arrptr->data + i);
@@ -196,6 +201,13 @@ int jarray_find(JArray *arrptr, int value) {
   }
 
   return found_index;
+}
+
+void check_address(void *p) {
+  if (p == NULL) {
+    printf("Unable to allocate memory.\n");
+    exit(EXIT_FAILURE);
+  }
 }
 
 //=========== tests ===================================

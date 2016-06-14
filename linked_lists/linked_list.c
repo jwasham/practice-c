@@ -1,5 +1,7 @@
 JForwardList *jforward_list_new() {
   JForwardList *jlist = malloc(sizeof(JForwardList));
+  check_address(jlist);
+
   jlist->head = 0;
   jlist->tail = 0;
 
@@ -34,6 +36,8 @@ void jforward_list_push_front(JForwardList *jlist, int value) {
   struct SingleNode *head = jlist->head;
 
   struct SingleNode *node = malloc(sizeof(struct SingleNode));
+  check_address(node);
+
   node->data = value;
   node->next = head;
 
@@ -98,6 +102,8 @@ void jforward_list_pop_front(JForwardList *jlist) {
 
 void jforward_list_push_back(JForwardList *jlist, int value) {
   struct SingleNode *node = malloc(sizeof(struct SingleNode));
+  check_address(node);
+
   node->data = value;
   node->next = 0;
 
@@ -153,6 +159,8 @@ void jforward_list_insert(JForwardList *jlist, int index, int value) {
   }
 
   struct SingleNode *node = malloc(sizeof(struct SingleNode));
+  check_address(node);
+
   node->data = value;
 
   if (index == 0 && jlist->head == 0) {
@@ -226,4 +234,11 @@ void jforward_list_erase(JForwardList *jlist, int index) {
   }
 
   free(current);
+}
+
+void check_address(void *p) {
+  if (p == NULL) {
+    printf("Unable to allocate memory.\n");
+    exit(EXIT_FAILURE);
+  }
 }

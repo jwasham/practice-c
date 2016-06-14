@@ -58,6 +58,8 @@ void jarray_delete(JArray *arrptr, int index);
 void jarray_remove(JArray *arrptr, int value);
 // Returns the index of the first occurrence of the given value in the array.
 int jarray_find(JArray *arrptr, int value);
+// Checks to see if given value is valid for memory, and exits if so
+void check_address(void *p);
 
 // tests
 
