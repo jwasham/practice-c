@@ -8,6 +8,8 @@ void run_all_tests() {
   test_push_back();
   test_pop_back();
   test_insert();
+  test_value_at();
+  test_erase();
 }
 
 void test_size() {
@@ -135,28 +137,71 @@ void test_pop_back() {
   jforward_list_destroy(tester);
 }
 
+void test_value_at() {
+  JForwardList *tester = jforward_list_new();
+
+  jforward_list_push_back(tester, 1);
+  jforward_list_push_back(tester, 2);
+  jforward_list_push_back(tester, 3);
+
+  assert(jforward_list_value_at(tester, 0) == 1);
+  assert(jforward_list_value_at(tester, 1) == 2);
+  assert(jforward_list_value_at(tester, 2) == 3);
+
+  jforward_list_destroy(tester);
+}
+
 void test_insert() {
   JForwardList *tester = jforward_list_new();
 
   jforward_list_insert(tester, 0, 5);
   assert(jforward_list_size(tester) == 1);
-  assert(jforward_list_back(tester) == 5);
+  assert(jforward_list_value_at(tester, 0) == 5);
 
   jforward_list_insert(tester, 0, 3);
-  assert(jforward_list_size(tester) == 2);
-  assert(jforward_list_front(tester) == 3);
-  assert(jforward_list_back(tester) == 5);
+  assert(jforward_list_value_at(tester, 0) == 3);
+  assert(jforward_list_value_at(tester, 1) == 5);
 
   jforward_list_insert(tester, 1, 4);
-  assert(jforward_list_size(tester) == 3);
-  assert(jforward_list_front(tester) == 3);
-  assert(jforward_list_back(tester) == 5);
+  assert(jforward_list_value_at(tester, 0) == 3);
+  assert(jforward_list_value_at(tester, 1) == 4);
+  assert(jforward_list_value_at(tester, 2) == 5);
 
   jforward_list_push_front(tester, 20);
   jforward_list_push_front(tester, 10);
 
-  jforward_list_insert(tester, 4, 6);
-  assert(jforward_list_back(tester) == 5);
+  jforward_list_insert(tester, 2, 2);
+  assert(jforward_list_value_at(tester, 2) == 2);
+  assert(jforward_list_value_at(tester, 3) == 3);
+
+  jforward_list_destroy(tester);
+}
+
+void test_erase() {
+  JForwardList *tester = jforward_list_new();
+
+  jforward_list_push_front(tester, 5);
+  jforward_list_erase(tester, 0);
+
+  assert(jforward_list_size(tester) == 0);
+
+  jforward_list_push_back(tester, 1);
+  jforward_list_push_back(tester, 2);
+
+  jforward_list_erase(tester, 0);
+  assert(jforward_list_value_at(tester, 0) == 2);
+
+  jforward_list_push_back(tester, 3);
+
+  jforward_list_erase(tester, 1);
+
+  assert(jforward_list_value_at(tester, 0) == 2);
+
+  jforward_list_push_back(tester, 3);
+  jforward_list_push_back(tester, 4);
+
+  jforward_list_erase(tester, 2);
+  assert(jforward_list_value_at(tester, 1) == 3);
 
   jforward_list_destroy(tester);
 }

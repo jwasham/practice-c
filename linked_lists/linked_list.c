@@ -137,21 +137,6 @@ void jforward_list_pop_back(JForwardList *jlist) {
 }
 
 void jforward_list_insert(JForwardList *jlist, int index, int value) {
-  if (index < 0) {
-    printf("Cannot insert - index out of bounds\n");
-    exit(EXIT_FAILURE);
-  }
-
-  if (index > 0 && jlist->head == 0) {
-    printf("Cannot insert - index beyond size (0)\n");
-    exit(EXIT_FAILURE);
-  }
-
-  if (index > 1 && jlist->head == jlist->tail) {
-    printf("Cannot insert - index beyond size (1)\n");
-    exit(EXIT_FAILURE);
-  }
-
   struct SingleNode *current = jlist->head;
   struct SingleNode *last = jlist->head;
 
@@ -160,6 +145,11 @@ void jforward_list_insert(JForwardList *jlist, int index, int value) {
     ++current_index;
     last = current;
     current = current->next;
+  }
+
+  if (current_index < index) {
+    printf("Index out of bounds\n");
+    exit(EXIT_FAILURE);
   }
 
   struct SingleNode *node = malloc(sizeof(struct SingleNode));
@@ -182,5 +172,58 @@ void jforward_list_insert(JForwardList *jlist, int index, int value) {
     node->next = last->next;
     last->next = node;
   }
+}
 
+int jforward_list_value_at(JForwardList *jlist, int index) {
+  struct SingleNode *current = jlist->head;
+
+  int current_index = 0;
+  while (index > current_index && current != 0) {
+    ++current_index;
+    current = current->next;
+  }
+
+  if (current_index < index || current == 0) {
+    printf("Index out of bounds\n");
+    exit(EXIT_FAILURE);
+  }
+
+  return current->data;
+}
+
+void jforward_list_erase(JForwardList *jlist, int index) {
+
+  if (jlist->head == 0) {
+    printf("Cannot erase: empty list\n");
+    exit(EXIT_FAILURE);
+  }
+
+  struct SingleNode *current = jlist->head;
+  struct SingleNode *last = jlist->head;
+
+  int current_index = 0;
+  while (index > current_index && current != 0) {
+    ++current_index;
+    last = current;
+    current = current->next;
+  }
+
+  if (current_index < index) {
+    printf("Index out of bounds\n");
+    exit(EXIT_FAILURE);
+  }
+
+  if (index == 0) {
+    jlist->head = current->next;
+    if (jlist->tail == current) {
+      jlist->tail = jlist->head;
+    }
+  } else {
+    last->next = current->next;
+    if (jlist->tail == current) {
+      jlist->tail = last;
+    }
+  }
+
+  free(current);
 }

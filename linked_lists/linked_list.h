@@ -37,5 +37,9 @@ void jforward_list_push_back(JForwardList *jlist, int value);
 void jforward_list_pop_back(JForwardList *jlist);
 // Insert value at index, so current item at that index is pointed to by next in new node.
 void jforward_list_insert(JForwardList *jlist, int index, int value);
+// Returns the value of the nth item
+int jforward_list_value_at(JForwardList *jlist, int index);
+// Removes node at given index
+void jforward_list_erase(JForwardList *jlist, int index);
 
 #endif  // PROJECT_LINKED_LIST_H
