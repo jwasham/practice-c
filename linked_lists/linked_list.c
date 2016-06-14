@@ -236,6 +236,28 @@ void jforward_list_erase(JForwardList *jlist, int index) {
   free(current);
 }
 
+int jforward_list_value_n_from_end(JForwardList *jlist, int n) {
+
+  struct SingleNode *first = jlist->head;
+  struct SingleNode *match = jlist->head;
+
+  for (int i = 0; i < n; ++i) {
+    if (first) {
+      first = first->next;
+    } else {
+      printf("List not long enough to find nth item from end.");
+      exit(EXIT_FAILURE);
+    }
+  }
+
+  while (first) {
+    first = first->next;
+    match = match->next;
+  }
+
+  return match->data;
+}
+
 void check_address(void *p) {
   if (p == NULL) {
     printf("Unable to allocate memory.\n");

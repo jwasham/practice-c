@@ -43,6 +43,9 @@ void jforward_list_insert(JForwardList *jlist, int index, int value);
 int jforward_list_value_at(JForwardList *jlist, int index);
 // Removes node at given index
 void jforward_list_erase(JForwardList *jlist, int index);
+// Returns the value of the node at nth position from the end of the list.
+// For last item, n=1, for second-to-last, n=2, etc.
+int jforward_list_value_n_from_end(JForwardList *jlist, int n);
 // Checks to see if given value is valid for memory, and exits if so
 void check_address(void *p);
 

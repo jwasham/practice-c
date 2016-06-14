@@ -10,6 +10,7 @@ void run_all_tests() {
   test_insert();
   test_value_at();
   test_erase();
+  test_value_n_from_end();
 }
 
 void test_size() {
@@ -204,4 +205,30 @@ void test_erase() {
   assert(jforward_list_value_at(tester, 1) == 3);
 
   jforward_list_destroy(tester);
+}
+
+void test_value_n_from_end() {
+  JForwardList *tester = jforward_list_new();
+
+  jforward_list_push_back(tester, 123);
+  jforward_list_push_back(tester, 623);
+  jforward_list_push_back(tester, 987);
+  jforward_list_push_back(tester, 629);
+  jforward_list_push_back(tester, 812);
+  jforward_list_push_back(tester, 238);
+
+  assert(jforward_list_value_n_from_end(tester, 4) == 987);
+  assert(jforward_list_value_n_from_end(tester, 2) == 812);
+  assert(jforward_list_value_n_from_end(tester, 6) == 123);
+
+  jforward_list_destroy(tester);
+
+  // test with single item list
+
+  JForwardList *tester2 = jforward_list_new();
+
+  jforward_list_push_back(tester2, 999);
+  assert(jforward_list_value_n_from_end(tester2, 1) == 999);
+
+  jforward_list_destroy(tester2);
 }

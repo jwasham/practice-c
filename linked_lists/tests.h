@@ -16,5 +16,6 @@ void test_pop_back();
 void test_value_at();
 void test_insert();
 void test_erase();
+void test_value_n_from_end();
 
 #endif  // PROJECT_TESTS_H
