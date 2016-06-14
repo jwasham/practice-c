@@ -19,9 +19,23 @@ JForwardList *jforward_list_new();
 void jforward_list_destroy(JForwardList *jlist);
 // Returns number of data elements in list.
 int jforward_list_size(JForwardList *jlist);
+// Returns true if list is empty
+bool jforward_list_empty(JForwardList *jlist);
 // Adds the given value to the front of the list
 void jforward_list_push_front(JForwardList *jlist, int value);
-// Prints the elements in the list for debugging purposes
+// Prints the elements in the list for debugging purposes.
 void jforward_list_print_debug(JForwardList *jlist);
+// Returns the value of the first item in the list.
+int jforward_list_front(JForwardList *jlist);
+// Returns the value of the end item.
+int jforward_list_back(JForwardList *jlist);
+// Removes item at front.
+void jforward_list_pop_front(JForwardList *jlist);
+// Adds an item at the end
+void jforward_list_push_back(JForwardList *jlist, int value);
+// Removes the item from the end.
+void jforward_list_pop_back(JForwardList *jlist);
+// Insert value at index, so current item at that index is pointed to by next in new node.
+void jforward_list_insert(JForwardList *jlist, int index, int value);
 
 #endif  // PROJECT_LINKED_LIST_H
