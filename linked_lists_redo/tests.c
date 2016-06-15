@@ -12,9 +12,7 @@ void run_all_tests() {
   test_erase();
   test_value_n_from_end();
   test_reverse();
-//  test_reverse_single();
-//  test_reverse_empty();
-//  test_remove();
+  test_remove_value();
 }
 
 void test_size() {
@@ -200,6 +198,30 @@ void test_reverse() {
   assert(value_at(head, 0) == 3);
   assert(value_at(head, 1) == 4);
   assert(value_at(head, 2) == 5);
+
+  destroy_list(head);
+}
+
+void test_remove_value() {
+  node_t *head = NULL;
+
+  push_back(&head, 1);
+  remove_value(&head, 1);
+  assert(empty(head));
+  remove_value(&head, 9); // won't be found
+
+  push_back(&head, 1);
+  push_back(&head, 2);
+  remove_value(&head, 1);
+  assert(size(head) == 1);
+  assert(value_at(head, 0) == 2);
+
+  push_back(&head, 3);
+  push_back(&head, 4);
+
+  remove_value(&head, 4);
+  assert(size(head) == 2);
+  assert(value_at(head, 1) == 3);
 
   destroy_list(head);
 }

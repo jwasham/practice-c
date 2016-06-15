@@ -17,8 +17,6 @@ void test_insert();
 void test_erase();
 void test_value_n_from_end();
 void test_reverse();
-//void test_reverse_single();
-//void test_reverse_empty();
-//void test_remove();
+void test_remove_value();
 
 #endif  // PROJECT_TESTS_H

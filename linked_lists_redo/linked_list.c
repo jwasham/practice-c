@@ -179,7 +179,6 @@ void insert(node_t **head, int index, int value) {
 }
 
 void erase(node_t **head, int index) {
-
   if (*head == NULL) {
     printf("Unable to erase from empty list.");
     exit(EXIT_FAILURE);
@@ -208,7 +207,6 @@ void erase(node_t **head, int index) {
 }
 
 int value_n_from_end(node_t *head, int n) {
-
   if (n < 1 || head == NULL) {
     printf("Cannot get nth item from end.");
     exit(EXIT_FAILURE);
@@ -248,4 +246,23 @@ void reverse(node_t **head) {
   }
 
   *head = prev;
+}
+
+void remove_value(node_t **head, int value) {
+  node_t *current = *head;
+  node_t *prev = NULL;
+
+  while (current) {
+    if (current->val == value) {
+      if (prev) {
+        prev->next = current->next;
+      } else {
+        *head = current->next;
+      }
+      free(current);
+    }
+
+    prev = current;
+    current = current->next;
+  }
 }

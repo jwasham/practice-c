@@ -36,13 +36,17 @@ int pop_back(node_t **head);
 int front(node_t *head);
 // Returns the value at the end of the list.
 int back(node_t *head);
-// Insert given value at index (starts at 0, like array), so current item at that index is pointed to by next at index
+// Insert given value at index (starts at 0, like array), so current item at
+// that index is pointed to by next at index
 void insert(node_t **head, int index, int value);
 // Removes node at given index (starts at 0, like array)
 void erase(node_t **head, int index);
-// Returns the value of the node at nth position from the end of the list. For last item, n = 1, second to last, n = 2
+// Returns the value of the node at nth position from the end of the list. For
+// last item, n = 1, second to last, n = 2
 int value_n_from_end(node_t *head, int n);
 // Reverse the linked list
 void reverse(node_t **head);
+// Removes the first item in the list with this value
+void remove_value(node_t **head, int value);
 
 #endif  // PROJECT_LINKED_LIST_REDO_H
