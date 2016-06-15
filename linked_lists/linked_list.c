@@ -258,6 +258,46 @@ int jforward_list_value_n_from_end(JForwardList *jlist, int n) {
   return match->data;
 }
 
+void jforward_list_reverse(JForwardList *jlist) {
+
+  struct SingleNode *prev = NULL;
+  struct SingleNode *current = jlist->head;
+  struct SingleNode *next;
+
+  jlist->tail = jlist->head;
+
+  while (current) {
+    next = current->next;
+    current->next = prev;
+    prev = current;
+    current = next;
+  }
+
+  jlist->head = prev;
+}
+
+void jforward_list_remove(JForwardList *jlist, int value) {
+  struct SingleNode *current = jlist->head;
+  struct SingleNode *prev = NULL;
+
+  while (current) {
+    if (current->data == value) {
+      if (prev) {
+        prev->next = current->next;
+      } else {
+        jlist->head = current->next;
+      }
+      if (current->next == NULL) {
+        jlist->tail = current;
+      }
+      free(current);
+      break;
+    }
+    prev = current;
+    current = current->next;
+  }
+}
+
 void check_address(void *p) {
   if (p == NULL) {
     printf("Unable to allocate memory.\n");

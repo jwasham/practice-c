@@ -1,4 +1,6 @@
 #include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #ifndef PROJECT_LINKED_LIST_H
 #define PROJECT_LINKED_LIST_H
@@ -46,6 +48,10 @@ void jforward_list_erase(JForwardList *jlist, int index);
 // Returns the value of the node at nth position from the end of the list.
 // For last item, n=1, for second-to-last, n=2, etc.
 int jforward_list_value_n_from_end(JForwardList *jlist, int n);
+// Reverse the values stored in the list.
+void jforward_list_reverse(JForwardList *jlist);
+// Removes the first item in the list with this value
+void jforward_list_remove(JForwardList *jlist, int value);
 // Checks to see if given value is valid for memory, and exits if so
 void check_address(void *p);
 

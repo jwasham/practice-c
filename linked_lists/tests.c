@@ -11,6 +11,10 @@ void run_all_tests() {
   test_value_at();
   test_erase();
   test_value_n_from_end();
+  test_reverse();
+  test_reverse_single();
+  test_reverse_empty();
+  test_remove();
 }
 
 void test_size() {
@@ -231,4 +235,67 @@ void test_value_n_from_end() {
   assert(jforward_list_value_n_from_end(tester2, 1) == 999);
 
   jforward_list_destroy(tester2);
+}
+
+void test_reverse() {
+  JForwardList *tester = jforward_list_new();
+
+  jforward_list_push_back(tester, 2);
+  jforward_list_push_back(tester, 3);
+  jforward_list_push_back(tester, 5);
+  jforward_list_push_back(tester, 8);
+  jforward_list_push_back(tester, 11);
+
+  jforward_list_reverse(tester);
+
+  assert(jforward_list_value_at(tester, 0) == 11);
+  assert(jforward_list_value_at(tester, 1) == 8);
+  assert(jforward_list_value_at(tester, 2) == 5);
+  assert(jforward_list_value_at(tester, 3) == 3);
+  assert(jforward_list_value_at(tester, 4) == 2);
+
+  jforward_list_destroy(tester);
+}
+
+void test_reverse_single() {
+  JForwardList *tester = jforward_list_new();
+
+  jforward_list_push_back(tester, 2);
+
+  jforward_list_reverse(tester);
+
+  assert(jforward_list_value_at(tester, 0) == 2);
+
+  jforward_list_destroy(tester);
+}
+
+void test_reverse_empty() {
+  JForwardList *tester = jforward_list_new();
+
+  // if there was an uncovered case this would blow up
+  jforward_list_reverse(tester);
+
+  jforward_list_destroy(tester);
+}
+
+void test_remove() {
+  JForwardList *tester = jforward_list_new();
+
+  jforward_list_push_back(tester, 2);
+  jforward_list_push_back(tester, 4);
+  jforward_list_push_back(tester, 6);
+
+  jforward_list_remove(tester, 6);
+  assert(jforward_list_size(tester) == 2);
+  assert(jforward_list_value_at(tester, 0) == 2);
+  assert(jforward_list_value_at(tester, 1) == 4);
+
+  jforward_list_remove(tester, 2);
+  assert(jforward_list_size(tester) == 1);
+  assert(jforward_list_value_at(tester, 0) == 4);
+
+  jforward_list_remove(tester, 4);
+  assert(jforward_list_size(tester) == 0);
+
+  jforward_list_destroy(tester);
 }
