@@ -3,9 +3,9 @@
 #include "tests.h"
 #include "tests.c"
 
-// Implements a singly linked list, quasi-OO style
+// Implements a singly linked list
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
   run_all_tests();
 
   return EXIT_SUCCESS;
