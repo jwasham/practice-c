@@ -177,3 +177,75 @@ void insert(node_t **head, int index, int value) {
     *head = node;
   }
 }
+
+void erase(node_t **head, int index) {
+
+  if (*head == NULL) {
+    printf("Unable to erase from empty list.");
+    exit(EXIT_FAILURE);
+  }
+
+  node_t *current = *head;
+  node_t *prev = NULL;
+
+  int i;
+  for (i = 0; i < index && current; i++) {
+    prev = current;
+    current = current->next;
+  }
+
+  if (i != index) {
+    printf("Index out of bounds.");
+    exit(EXIT_FAILURE);
+  }
+
+  if (prev) {
+    prev->next = current->next;
+  } else {
+    *head = current->next;
+  }
+  free(current);
+}
+
+int value_n_from_end(node_t *head, int n) {
+
+  if (n < 1 || head == NULL) {
+    printf("Cannot get nth item from end.");
+    exit(EXIT_FAILURE);
+  }
+
+  node_t *current = head;
+  node_t *match = head;
+
+  int i;
+  for (i = 0; i < n && current; ++i) {
+    current = current->next;
+  }
+
+  if (i != n) {
+    printf("List is too short to get nth item from end.");
+    exit(EXIT_FAILURE);
+  }
+
+  while (current) {
+    current = current->next;
+    match = match->next;
+  }
+
+  return match->val;
+}
+
+void reverse(node_t **head) {
+  node_t *prev = NULL;
+  node_t *current = *head;
+  node_t *next = *head;
+
+  while (current) {
+    next = current->next;
+    current->next = prev;
+    prev = current;
+    current = next;
+  }
+
+  *head = prev;
+}

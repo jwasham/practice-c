@@ -9,9 +9,9 @@ void run_all_tests() {
   test_front();
   test_back();
   test_insert();
-//  test_erase();
-//  test_value_n_from_end();
-//  test_reverse();
+  test_erase();
+  test_value_n_from_end();
+  test_reverse();
 //  test_reverse_single();
 //  test_reverse_empty();
 //  test_remove();
@@ -145,6 +145,61 @@ void test_insert() {
   assert(value_at(head, 1) == 4);
   assert(value_at(head, 2) == 5);
   assert(value_at(head, 3) == 6);
+
+  destroy_list(head);
+}
+
+void test_erase() {
+  node_t *head = NULL;
+
+  push_back(&head, 1);
+  push_back(&head, 2);
+  push_back(&head, 3);
+
+  erase(&head, 0);
+  assert(value_at(head, 0) == 2);
+  assert(size(head) == 2);
+
+  erase(&head, 1);
+  assert(value_at(head, 0) == 2);
+  assert(size(head) == 1);
+
+  erase(&head, 0);
+  assert(size(head) == 0);
+
+  destroy_list(head);
+}
+
+void test_value_n_from_end() {
+  node_t *head = NULL;
+
+  push_back(&head, 7);
+  assert(value_n_from_end(head, 1) == 7);
+
+  push_back(&head, 8);
+  assert(value_n_from_end(head, 2) == 7);
+  assert(value_n_from_end(head, 1) == 8);
+
+  destroy_list(head);
+}
+
+void test_reverse() {
+  node_t *head = NULL;
+
+  push_back(&head, 4);
+  reverse(&head); // 4 ->
+  assert(value_at(head, 0) == 4);
+
+  push_back(&head, 5);
+  reverse(&head); // 5 -> 4 ->
+  assert(value_at(head, 0) == 5);
+  assert(value_at(head, 1) == 4);
+
+  push_back(&head, 3);
+  reverse(&head); // 3 -> 4 -> 5 ->
+  assert(value_at(head, 0) == 3);
+  assert(value_at(head, 1) == 4);
+  assert(value_at(head, 2) == 5);
 
   destroy_list(head);
 }
