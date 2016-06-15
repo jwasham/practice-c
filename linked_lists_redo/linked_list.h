@@ -36,5 +36,7 @@ int pop_back(node_t **head);
 int front(node_t *head);
 // Returns the value at the end of the list.
 int back(node_t *head);
+// Insert given value at index (starts at 0, like array), so current item at that index is pointed to by next at index
+void insert(node_t **head, int index, int value);
 
 #endif  // PROJECT_LINKED_LIST_REDO_H

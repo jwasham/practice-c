@@ -30,7 +30,7 @@ void push_front(node_t **head, int value) {
 }
 
 void check_address(void *addr) {
-  if (! addr) {
+  if (!addr) {
     printf("Unable to allocate memory.");
     exit(EXIT_FAILURE);
   }
@@ -46,9 +46,7 @@ void destroy_list(node_t *head) {
   }
 }
 
-bool empty(node_t *head) {
-  return (head == NULL);
-}
+bool empty(node_t *head) { return (head == NULL); }
 
 int value_at(node_t *head, int n) {
   node_t *current = head;
@@ -59,7 +57,7 @@ int value_at(node_t *head, int n) {
     current = current->next;
   }
 
-  if (! current) {
+  if (!current) {
     printf("Given index does not exist in list.");
     exit(EXIT_FAILURE);
   } else {
@@ -103,10 +101,9 @@ void push_back(node_t **head, int value) {
 }
 
 int pop_back(node_t **head) {
-
   if (*head == NULL) {
     printf("Unable to pop_back from empty list.");
-    exit(EXIT_SUCCESS);
+    exit(EXIT_FAILURE);
   }
 
   node_t *current = *head;
@@ -132,7 +129,7 @@ int pop_back(node_t **head) {
 int front(node_t *head) {
   if (head == NULL) {
     printf("Unable to pop_back from empty list.");
-    exit(EXIT_SUCCESS);
+    exit(EXIT_FAILURE);
   }
 
   return head->val;
@@ -141,7 +138,7 @@ int front(node_t *head) {
 int back(node_t *head) {
   if (head == NULL) {
     printf("Unable to pop_back from empty list.");
-    exit(EXIT_SUCCESS);
+    exit(EXIT_FAILURE);
   }
 
   node_t *current = head;
@@ -150,4 +147,33 @@ int back(node_t *head) {
   }
 
   return current->val;
+}
+
+void insert(node_t **head, int index, int value) {
+  node_t *current = *head;
+  node_t *prev = NULL;
+
+  int i;
+  for (i = 0; i < index && current; ++i) {
+    prev = current;
+    current = current->next;
+  }
+
+  if (i != index) {
+    printf("Given index out of bounds.");
+    exit(EXIT_FAILURE);
+  }
+
+  node_t *node = malloc(sizeof(node_t));
+  check_address(node);
+
+  node->val = value;
+
+  if (prev) {
+    node->next = current;
+    prev->next = node;
+  } else {
+    node->next = *head;
+    *head = node;
+  }
 }

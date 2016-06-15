@@ -8,7 +8,7 @@ void run_all_tests() {
   test_pop_back();
   test_front();
   test_back();
-//  test_insert();
+  test_insert();
 //  test_erase();
 //  test_value_n_from_end();
 //  test_reverse();
@@ -129,6 +129,22 @@ void test_back() {
 
   pop_back(&head);
   assert(back(head) == 77);
+
+  destroy_list(head);
+}
+
+void test_insert() {
+  node_t *head = NULL;
+
+  insert(&head, 0, 5);
+  insert(&head, 0, 3);
+  insert(&head, 1, 4);
+  insert(&head, 3, 6);
+
+  assert(value_at(head, 0) == 3);
+  assert(value_at(head, 1) == 4);
+  assert(value_at(head, 2) == 5);
+  assert(value_at(head, 3) == 6);
 
   destroy_list(head);
 }
