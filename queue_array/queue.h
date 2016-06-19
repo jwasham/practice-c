@@ -26,7 +26,7 @@ bool empty(queue *q);
 // Returns true if queue is full
 bool full(queue *q);
 // Prints the content of the queue for debugging purposes.
-void print_queue(queue *q);
+void print_debug(queue *q);
 // Checks to see if memory provided by malloc is valid and exits if not.
 void check_memory(queue * address);
 

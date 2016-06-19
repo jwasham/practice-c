@@ -57,6 +57,9 @@ void test_rotation() {
   enqueue(q, 500);
   enqueue(q, 600);
   enqueue(q, 700);
+
+  //print_debug(q);
+
   // should now have 300, 400, 500, 600, 700
 
   assert(full(q));

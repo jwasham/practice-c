@@ -42,10 +42,12 @@ bool full(queue *q) {
   return q->pop == (q->insert + 1) % kQueuePositions;
 }
 
-void print_queue(queue *q) {
-  printf("Queue contents:\n");
+void print_debug(queue *q) {
+  printf("Queue contents (old to new): ");
 
-
+  for (int i = q->pop; i != q->insert; i = (i + 1) % kQueuePositions) {
+    printf("%d, ", q->data[i]);
+  }
 
   printf("\n");
 }
