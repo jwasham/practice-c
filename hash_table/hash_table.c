@@ -50,15 +50,19 @@ void print_debug(hash_table* table) {
 }
 
 bool exists(const hash_table* table, const char* key) {
-  int hash_val = hash(key, kTableSize);
+  int index = hash(key, kTableSize);
+  int original_index = index;
   bool found = false;
 
-  while (table->data[hash_val] != NULL) {
-    if (strcmp(table->data[hash_val]->key, key) == 0) {
+  while (table->data[index] != NULL) {
+    if (strcmp(table->data[index]->key, key) == 0) {
       found = true;
       break;
     }
-    hash_val = (hash_val + 1) % table->size;
+    index = (index + 1) % table->size;
+    if (index == original_index) {
+      break;
+    }
   }
 
   return found;
@@ -66,6 +70,7 @@ bool exists(const hash_table* table, const char* key) {
 
 void add(hash_table* table, const char* key, const key_value* object) {
   int index = hash(key, kTableSize);
+  int original_index = index;
   bool found = false;
   int dummyIndex = -1;
 
@@ -77,6 +82,9 @@ void add(hash_table* table, const char* key, const key_value* object) {
       dummyIndex = index;
     }
     index = (index + 1) % table->size;
+    if (index == original_index) {
+      return;
+    }
   }
 
   if (! found && dummyIndex != -1) {
@@ -97,12 +105,16 @@ void add(hash_table* table, const char* key, const key_value* object) {
 
 char* get(const hash_table* table, const char* key) {
   int index = hash(key, table->size);
+  int original_index = index;
 
   while (table->data[index] != NULL) {
     if (strcmp(table->data[index]->key, key) == 0) {
       return table->data[index]->value;
     }
     index = (index + 1) % table->size;
+    if (index == original_index) {
+      break;
+    }
   }
 
   return NULL;
@@ -110,6 +122,7 @@ char* get(const hash_table* table, const char* key) {
 
 void delete(hash_table* table, const char* key) {
   int index = hash(key, table->size);
+  int original_index = index;
 
   while (table->data[index] != NULL) {
     if (strcmp(table->data[index]->key, key) == 0) {
@@ -120,5 +133,8 @@ void delete(hash_table* table, const char* key) {
       break;
     }
     index = (index + 1) % table->size;
+    if (index == original_index) {
+      return;
+    }
   }
 }
