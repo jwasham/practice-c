@@ -14,6 +14,14 @@ int main(int argc, char* argv[]) {
     printf("%3d: %s\n", i, buffer);
   }
 
+//  char buffer[size + 1] = {0};
+//  buffer[size] = '\0';
+//  unsigned int bf = 0x70;
+//  btoa(bf, buffer, size);
+//  printf("%3d: %s\n", bf, buffer);
+
+  // bool isPowerOfTwo = x && !(x & (x - 1));
+
   return EXIT_SUCCESS;
 }
 
