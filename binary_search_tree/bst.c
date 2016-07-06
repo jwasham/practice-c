@@ -82,3 +82,31 @@ int max_num(int val1, int val2) {
     return val2;
   }
 }
+
+int get_min(bst_node* node) {
+  if (node == NULL) {
+    return 0;
+  }
+
+  bst_node* current = node;
+
+  while (current->left != NULL) {
+    current = current->left;
+  }
+
+  return current->value;
+}
+
+int get_max(bst_node* node) {
+  if (node == NULL) {
+    return 0;
+  }
+
+  bst_node* current = node;
+
+  while (current->right != NULL) {
+    current = current->right;
+  }
+
+  return current->value;
+}

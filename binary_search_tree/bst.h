@@ -25,5 +25,9 @@ bool is_in_tree(bst_node* node, int value);
 int get_height(bst_node* node);
 // Returns the greater of 2 values
 int max_num(int, int);
+// Returns the minimum value in the tree, 0 if empty
+int get_min(bst_node* node);
+// Returns the maximum value in the tree, 0 if empty
+int get_max(bst_node* node);
 
 #endif  // PROJECT_BST_H
