@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/queue.h>
+#include <assert.h>
 #include "bst.c"
 
 int main(int argc, char* argv[]) {
@@ -13,10 +14,19 @@ int main(int argc, char* argv[]) {
   root = insert(root, 16);
 
   print_tree(root);
+  printf("Tree contains %d nodes.\n", get_node_count(root));
 
-  int node_count = get_node_count(root);
+  assert(is_in_tree(root, 3));
+  assert(is_in_tree(root, 11));
+  assert(is_in_tree(root, 16));
+  assert(! is_in_tree(root, 0));
+  assert(! is_in_tree(root, -1));
 
-  printf("Tree contains %d nodes.\n", node_count);
+  assert(get_height(root) == 3);
+  root = insert(root, 5);
+  assert(get_height(root) == 4);
+
+  delete_tree(root);
 
   return 0;
 }
