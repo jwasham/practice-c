@@ -9,8 +9,6 @@ typedef struct bst_node_t {
   struct bst_node_t* right;
 } bst_node;
 
-TAILQ_HEAD(tailhead, entry) head;
-
 // Inserts the given value into the (sub)tree rooted by node.
 bst_node* insert(bst_node* node, const int value);
 // Outputs the values stored in the tree rooted by node.
@@ -29,5 +27,11 @@ int max_num(int, int);
 int get_min(bst_node* node);
 // Returns the maximum value in the tree, 0 if empty
 int get_max(bst_node* node);
+// Returns true if given node is root of a binary search tree
+bool is_binary_search_tree(bst_node* node);
+// Returns true if value is greater than the value at the given node
+bool is_greater_than(bst_node* node, int value);
+// Returns true if value is less than the value at the given node
+bool is_less_than(bst_node* node, int value);
 
 #endif  // PROJECT_BST_H

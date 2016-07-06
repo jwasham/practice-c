@@ -110,3 +110,28 @@ int get_max(bst_node* node) {
 
   return current->value;
 }
+
+bool is_binary_search_tree(bst_node* node) {
+  if (node == NULL) {
+    return true;
+  }
+
+  return is_binary_search_tree(node->left)
+         && is_binary_search_tree(node->right)
+         && is_greater_than(node->left, node->value)
+         && is_less_than(node->right, node->value);
+}
+
+bool is_greater_than(bst_node* node, int value) {
+  if (node == NULL)
+    return true;
+
+  return node->value < value;
+}
+
+bool is_less_than(bst_node* node, int value) {
+  if (node == NULL)
+    return true;
+
+  return node->value > value;
+}

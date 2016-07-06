@@ -1,5 +1,5 @@
 #include <stdio.h>
-//#include <stdlib.h>
+#include <stdlib.h>
 //#include <sys/queue.h>
 #include <assert.h>
 #include "bst.c"
@@ -36,9 +36,21 @@ int main(int argc, char* argv[]) {
 
   //print_tree(root);
 
+  assert(is_binary_search_tree(root));
 
+  // make bad tree
+  bst_node* bad_root = malloc(sizeof(bst_node));
+  bad_root->value = 10;
+  bad_root->left = NULL;
+  bad_root->right = malloc(sizeof(bst_node));
+  bad_root->right->value = 9;
+  bad_root->right->left = NULL;
+  bad_root->right->right = NULL;
+
+  assert(! is_binary_search_tree(bad_root));
 
   delete_tree(root);
+  delete_tree(bad_root);
 
   return 0;
 }
