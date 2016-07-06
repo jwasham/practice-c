@@ -29,9 +29,7 @@ int get_min(bst_node* node);
 int get_max(bst_node* node);
 // Returns true if given node is root of a binary search tree
 bool is_binary_search_tree(bst_node* node);
-// Returns true if value is greater than the value at the given node
-bool is_greater_than(bst_node* node, int value);
-// Returns true if value is less than the value at the given node
-bool is_less_than(bst_node* node, int value);
+// Returns true if the node's value is between a min and max
+bool is_between(bst_node* node, int min, int max);
 
 #endif  // PROJECT_BST_H

@@ -112,26 +112,19 @@ int get_max(bst_node* node) {
 }
 
 bool is_binary_search_tree(bst_node* node) {
-  if (node == NULL) {
-    return true;
-  }
-
-  return is_binary_search_tree(node->left)
-         && is_binary_search_tree(node->right)
-         && is_greater_than(node->left, node->value)
-         && is_less_than(node->right, node->value);
-}
-
-bool is_greater_than(bst_node* node, int value) {
   if (node == NULL)
     return true;
 
-  return node->value < value;
+  return is_between(node, INT_MIN, INT_MAX);
 }
 
-bool is_less_than(bst_node* node, int value) {
+bool is_between(bst_node* node, int min, int max) {
   if (node == NULL)
     return true;
 
-  return node->value > value;
+  // ensure subtrees are not hiding a value lower or higher than the subtree allows
+  return node->value > min
+        && node->value < max
+        && is_between(node->left, min, node->value)
+        && is_between(node->right, node->value, max);
 }

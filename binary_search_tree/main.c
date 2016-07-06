@@ -2,6 +2,7 @@
 #include <stdlib.h>
 //#include <sys/queue.h>
 #include <assert.h>
+#include <limits.h>
 #include "bst.c"
 
 int main(int argc, char* argv[]) {
