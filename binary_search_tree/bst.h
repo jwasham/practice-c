@@ -31,5 +31,11 @@ int get_max(bst_node* node);
 bool is_binary_search_tree(bst_node* node);
 // Returns true if the node's value is between a min and max
 bool is_between(bst_node* node, int min, int max);
+// Deletes the given value from the tree
+bst_node* delete_value(bst_node* node, int value);
+// Returns the node containing the minimum value in the tree rooted by the given node.
+void get_min_node(bst_node* node);
+// Returns next-highest value in tree after given value, -1 if none
+int get_successor(bst_node* node, int value);
 
 #endif  // PROJECT_BST_H

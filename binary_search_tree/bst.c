@@ -128,3 +128,71 @@ bool is_between(bst_node* node, int min, int max) {
         && is_between(node->left, min, node->value)
         && is_between(node->right, node->value, max);
 }
+
+bst_node* delete_value(bst_node* node, int value) {
+  if (node == NULL)
+    return node;
+
+  if (value < node->value) {
+    node->left = delete_value(node->left, value);
+  } else if (value > node->value) {
+    node->right = delete_value(node->right, value);
+  } else { // found value
+
+    if (node->left == NULL && node->right == NULL) {
+      free(node);
+      node = NULL;
+    } else if (node->left == NULL) {
+      bst_node* temp = node;
+      node = node->right;
+      free(temp);
+    } else if (node->right == NULL) {
+      bst_node* temp = node;
+      node = node->left;
+      free(temp);
+    } else {
+      // 2 children - get min node of right subtree
+      int right_min = get_min(node->right);
+      node->value = right_min;
+      node->right = delete_value(node->right, right_min);
+    }
+  }
+
+  return node;
+}
+
+int get_successor(bst_node* node, int value) {
+  if (node == NULL)
+    return -1;
+
+  bst_node* target = node;
+
+  while (target->value != value) {
+    if (value < target->value) {
+      target = target->left;
+    } else if (value > target->value) {
+      target = target->right;
+    }
+  }
+
+  // arrived at target node
+  if (target->right != NULL) {
+    // get min value of right subtree
+    return get_min(target->right);
+  } else {
+    // get lowest ancestor that is a left child in the path to target value
+    bst_node* successor = NULL;
+    bst_node* ancestor = node;
+    while (ancestor != NULL) {
+      if (value < ancestor->value) {
+        successor = ancestor;
+        ancestor = ancestor->left;
+      } else {
+        ancestor = ancestor->right;
+      }
+    }
+
+    return successor->value;
+  }
+
+}

@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-//#include <sys/queue.h>
 #include <assert.h>
 #include <limits.h>
 #include "bst.c"
@@ -35,8 +34,6 @@ int main(int argc, char* argv[]) {
   root = insert(root, 32);
   assert(get_max(root) == 32);
 
-  //print_tree(root);
-
   assert(is_binary_search_tree(root));
 
   // make bad tree
@@ -49,6 +46,19 @@ int main(int argc, char* argv[]) {
   bad_root->right->right = NULL;
 
   assert(! is_binary_search_tree(bad_root));
+
+  root = delete_value(root, 4);
+  assert(! is_in_tree(root, 4));
+
+  printf("Tree contains %d nodes.\n", get_node_count(root));
+
+  root = insert(root, 4);
+
+  assert(get_successor(root, 3) == 4); // 4 is right child of 3
+  assert(get_successor(root, 2) == 3); // 3 is parent of 2, 2 is left child
+  assert(get_successor(root, 4) == 5); // 5 is root, 4 is right child of 3
+  assert(get_successor(root, 5) == 11); // 11 is min in right subtree of 5
+
 
   delete_tree(root);
   delete_tree(bad_root);
