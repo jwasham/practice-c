@@ -3,10 +3,7 @@
 bst_node* insert(bst_node* node, const int value) {
   if (node == 0) {
     bst_node* new_node = malloc(sizeof(bst_node));
-    if (new_node == NULL) {
-      printf("Unable to allocate memory.");
-      exit(0);
-    }
+    assert(new_node);
 
     new_node->value = value;
     new_node->left = 0;
@@ -45,8 +42,7 @@ int get_node_count(bst_node* node) {
 }
 
 void delete_tree(bst_node* node) {
-  if (node == NULL)
-    return;
+  if (node == NULL) return;
 
   delete_tree(node->left);
   delete_tree(node->right);
@@ -112,32 +108,29 @@ int get_max(bst_node* node) {
 }
 
 bool is_binary_search_tree(bst_node* node) {
-  if (node == NULL)
-    return true;
+  if (node == NULL) return true;
 
   return is_between(node, INT_MIN, INT_MAX);
 }
 
 bool is_between(bst_node* node, int min, int max) {
-  if (node == NULL)
-    return true;
+  if (node == NULL) return true;
 
-  // ensure subtrees are not hiding a value lower or higher than the subtree allows
-  return node->value > min
-        && node->value < max
-        && is_between(node->left, min, node->value)
-        && is_between(node->right, node->value, max);
+  // ensure subtrees are not hiding a value lower or higher than the subtree
+  // allows
+  return node->value > min && node->value < max &&
+         is_between(node->left, min, node->value) &&
+         is_between(node->right, node->value, max);
 }
 
 bst_node* delete_value(bst_node* node, int value) {
-  if (node == NULL)
-    return node;
+  if (node == NULL) return node;
 
   if (value < node->value) {
     node->left = delete_value(node->left, value);
   } else if (value > node->value) {
     node->right = delete_value(node->right, value);
-  } else { // found value
+  } else {  // found value
 
     if (node->left == NULL && node->right == NULL) {
       free(node);
@@ -162,8 +155,7 @@ bst_node* delete_value(bst_node* node, int value) {
 }
 
 int get_successor(bst_node* node, int value) {
-  if (node == NULL)
-    return -1;
+  if (node == NULL) return -1;
 
   bst_node* target = node;
 
@@ -194,5 +186,4 @@ int get_successor(bst_node* node, int value) {
 
     return successor->value;
   }
-
 }
