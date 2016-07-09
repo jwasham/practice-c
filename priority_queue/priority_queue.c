@@ -17,10 +17,6 @@ void insert(MaxHeap* heap, int value) {
 }
 
 void print_data(MaxHeap* heap) {
-//  for (int i = 1; i <= heap->size; ++i) {
-//    printf("%4d |", i);
-//  }
-//  putchar('\n');
   for (int i = 1; i <= heap->size; ++i) {
     printf("%4d |", heap->elements[i]);
   }
