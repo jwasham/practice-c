@@ -26,5 +26,15 @@ int extract_max(MaxHeap* heap);
 void sift_down(MaxHeap* heap, int index);
 // Returns the number of elements stored in the heap
 int get_size(MaxHeap* heap);
+// Removes the node at the given index
+void remove_node(MaxHeap* heap, int index);
+// Returns true if queue is empty
+bool is_empty(MaxHeap* heap);
+// Sorts the given array
+void heap_sort(int* numbers, int count);
+// Required by heap_sort with an in-place 0-indexed array
+void heapify(int* numbers, int count);
+// This is a sift down that is customized for 0-indexed arrays
+void percolate_down(int* numbers, int count, int index);
 
 #endif  // PROJECT_PRIORITY_QUEUE_H
