@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 void print_bits(int i);
 void btoa(char bits, char *output, int size);
@@ -7,7 +8,7 @@ void btoa(char bits, char *output, int size);
 int main(int argc, char* argv[]) {
 
   const int size = sizeof(unsigned int) * 8;
-//
+
 //  for (unsigned int i = 0; i < 20; ++i) {
 //    char buffer[size + 1] = {0};
 //    buffer[size] = '\0';
@@ -35,16 +36,12 @@ int main(int argc, char* argv[]) {
   print_bits(x);
   x &= ~(1 << 2);
   print_bits(x);
-  // flip every other bit, last bit ending as 0
-  x = 65535;
-  // working on it
-  print_bits(x);
 
   return EXIT_SUCCESS;
 }
 
 void print_bits(int i) {
-  const int size = sizeof(unsigned int) * 8;
+  const int size = sizeof(int) * 8;
 
   char buffer[size + 1] = {0};
   buffer[size] = '\0';
