@@ -41,8 +41,6 @@ spltree_node* insert(spltree_node* root, int value) {
 spltree_node* splay(spltree_node* x, int value) {
   spltree_node temp, *l, *r, *y;
 
-  if (x == NULL) return x;  // is this line needed?
-
   temp.left = temp.right = NULL;
   l = r = &temp;
 
