@@ -41,7 +41,7 @@ spltree_node* insert(spltree_node* root, int value) {
 spltree_node* splay(spltree_node* x, int value) {
   spltree_node temp, *l, *r, *y;
 
-  if (x == NULL) return x; // is this line needed?
+  if (x == NULL) return x;  // is this line needed?
 
   temp.left = temp.right = NULL;
   l = r = &temp;
@@ -56,19 +56,19 @@ spltree_node* splay(spltree_node* x, int value) {
         x = y;
         if (x->left == NULL) break;
       }
-      r->left = x;              // link right
+      r->left = x;  // link right
       r = x;
       x = x->left;
     } else if (value > x->value) {
       if (x->right == NULL) break;
       if (value > x->right->value) {
-        y = x->right;           // rotate left
+        y = x->right;  // rotate left
         x->right = y->left;
         y->left = x;
         x = y;
         if (x->right == NULL) break;
       }
-      l->right = x;             // link left
+      l->right = x;  // link left
       l = x;
       x = x->right;
     } else {
@@ -83,3 +83,30 @@ spltree_node* splay(spltree_node* x, int value) {
 
   return x;
 }
+
+spltree_node* delete (spltree_node* root, int value) {
+  spltree_node* x;
+
+  if (root == NULL) return NULL;
+
+  root = splay(root, value);
+
+  if (value == root->value) {
+    if (root->left == NULL) {
+      x = root->right;
+    } else {
+      x = splay(root->left, value);
+      x->right = root->right;
+    }
+
+    free(root);
+
+    return x;
+  }
+
+  return root;
+}
+
+void print_debug(spltree_node* node) {}
+
+void in_order(spltree_node* node) {}
