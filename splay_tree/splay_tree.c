@@ -107,6 +107,20 @@ spltree_node* delete (spltree_node* root, int value) {
   return root;
 }
 
-void print_debug(spltree_node* node) {}
+void print_debug(spltree_node* node) {
+  if (node == NULL) {
+    printf("-- empty --");
+  } else {
+    in_order(node);
+  }
 
-void in_order(spltree_node* node) {}
+  putchar('\n');
+}
+
+void in_order(spltree_node* node) {
+  if (node == NULL) return;
+
+  in_order(node->left);
+  printf("%d < ", node->value);
+  in_order(node->right);
+}

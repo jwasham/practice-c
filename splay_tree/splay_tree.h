@@ -1,3 +1,5 @@
+#include <assert.h>
+
 #ifndef PROJECT_SPLAY_TREE_H
 #define PROJECT_SPLAY_TREE_H
 
