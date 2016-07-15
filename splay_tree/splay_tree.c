@@ -47,26 +47,26 @@ spltree_node* splay(spltree_node* x, int value) {
   for (;;) {
     if (value < x->value) {
       if (x->left == NULL) break;
-      if (value < x->left->value) {  // rotate right
+      if (value < x->left->value) {   // rotate right
         y = x->left;
         x->left = y->right;
         y->right = x;
         x = y;
         if (x->left == NULL) break;
       }
-      r->left = x;  // link right
+      r->left = x;                    // link right
       r = x;
       x = x->left;
     } else if (value > x->value) {
       if (x->right == NULL) break;
-      if (value > x->right->value) {
-        y = x->right;  // rotate left
+      if (value > x->right->value) {  // rotate left
+        y = x->right;
         x->right = y->left;
         y->left = x;
         x = y;
         if (x->right == NULL) break;
       }
-      l->right = x;  // link left
+      l->right = x;                   // link left
       l = x;
       x = x->right;
     } else {
