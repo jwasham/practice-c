@@ -15,3 +15,29 @@ bool is_sorted(int* numbers, int count) {
 
   return sorted;
 }
+
+void print_ints(int numbers[], int count) {
+  for (int i = 0; i < count; ++i) {
+    printf("%d", numbers[i]);
+    if (i < count - 1) {
+      printf(", ");
+    }
+  }
+}
+
+bool contain_same_ints(int arr1[], int arr2[], int count) {
+  for (int i = 0; i < count; ++i) {
+    bool found = false;
+    for (int j = 0; j < count; ++j) {
+      if (arr1[i] == arr2[j]) {
+        found = true;
+        break;
+      }
+    }
+    if (!found) {
+      return false;
+    }
+  }
+
+  return true;
+}
