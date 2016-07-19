@@ -1,4 +1,5 @@
 void merge(int a[], int low, int mid, int high) {
+  // temporary array for holding merged values
   int b[high - low - 1];
   int i = low;
   int j = mid + 1;
