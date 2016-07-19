@@ -21,13 +21,13 @@ int main(int argc, char* argv[]) {
   if (is_sorted(numbers, num_count)) {
     printf("** SUCCESS! **\n");
   } else {
-    printf("Uh oh - not in order:\n");
+    printf("Uh oh - not in order.\n");
   }
 
   if (contain_same_ints(original, numbers, num_count)) {
     printf("** Contain the same elements! **\n");
   } else {
-    printf("Uh oh - something is missing:\n");
+    printf("Uh oh - something is missing.\n");
   }
 
   print_ints(numbers, num_count);
