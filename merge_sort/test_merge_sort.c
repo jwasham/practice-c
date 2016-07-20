@@ -8,6 +8,7 @@ bool is_sorted(int* numbers, int count) {
   for (int i = 0; i < count; ++i) {
     if (numbers[i] < (int)last_num) {
       sorted = false;
+      break;
     }
 
     last_num = numbers[i];
