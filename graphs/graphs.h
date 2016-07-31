@@ -11,7 +11,7 @@ typedef struct {
   int e; /* edge count */
 
   struct neighbors {
-    int count;
+    int length;
     int capacity;
     int list[];
   } * adjacency_list[];
@@ -23,7 +23,7 @@ typedef struct {
   int e; /* edge count */
 
   struct targets {
-    int count;
+    int length;
     int capacity;
     int list[];
   } * adjacency_list[];
@@ -38,16 +38,18 @@ void ugraph_add_edge(UndirectedGraph* g, const int src, const int dest);
 
 void _ugraph_append_edge(UndirectedGraph* g, const int src, const int dest);
 
-void ugraph_print_debug(UndirectedGraph* g);
+void ugraph_print_dfs(UndirectedGraph* g);
 
 void ugraph_dfs(UndirectedGraph* g, int visited[], const int vertex);
 
-DirectedGraph* digraph_create(int v);
+DirectedGraph* digraph_create(const int v);
 
 void digraph_destroy(DirectedGraph* g);
 
 void digraph_add_edge(DirectedGraph* g, const int src, const int dest);
 
-void digraph_print_debug(DirectedGraph* g);
+void digraph_print_dfs(DirectedGraph* g);
+
+void digraph_dfs(DirectedGraph* g, int visited[], const int vertex);
 
 #endif  // PROJECT_GRAPHS_H
