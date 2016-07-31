@@ -2,7 +2,6 @@
 #include "graphs.h"
 
 int main(int argc, char* argv[]) {
-
   const int u_vertices = 9;
   const int d_vertices = 9;
 
