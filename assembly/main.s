@@ -3,24 +3,32 @@
 	.globl	_main
 	.align	4, 0x90
 _main:                                  ## @main
-	.cfi_startproc
 ## BB#0:
-	pushq	%rbp
-Ltmp0:
-	.cfi_def_cfa_offset 16
-Ltmp1:
-	.cfi_offset %rbp, -16
-	movq	%rsp, %rbp
-Ltmp2:
-	.cfi_def_cfa_register %rbp
-	leaq	L_.str(%rip), %rdi
+	pushl	%ebp
+	movl	%esp, %ebp
+	pushl	%esi
+	subl	$36, %esp
+	calll	L0$pb
+L0$pb:
+	popl	%eax
+	movl	12(%ebp), %ecx
+	movl	8(%ebp), %edx
+	leal	L_.str-L0$pb(%eax), %eax
 	movl	$12345, %esi            ## imm = 0x3039
-	xorl	%eax, %eax
-	callq	_printf
-	movl	$61453, %eax            ## imm = 0xF00D
-	popq	%rbp
-	retq
-	.cfi_endproc
+	movl	$0, -8(%ebp)
+	movl	%edx, -12(%ebp)
+	movl	%ecx, -16(%ebp)
+	movl	%eax, (%esp)
+	movl	$12345, 4(%esp)         ## imm = 0x3039
+	movl	%esi, -20(%ebp)         ## 4-byte Spill
+	calll	_printf
+	movl	$61453, %ecx            ## imm = 0xF00D
+	movl	%eax, -24(%ebp)         ## 4-byte Spill
+	movl	%ecx, %eax
+	addl	$36, %esp
+	popl	%esi
+	popl	%ebp
+	retl
 
 	.section	__TEXT,__cstring,cstring_literals
 L_.str:                                 ## @.str

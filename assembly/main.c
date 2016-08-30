@@ -1,7 +1,7 @@
 #include <stdio.h>
 /*
  * Just a simple program so I can inspect the assembly code.
- * gcc -O2 -S -c main.c
+ * gcc -m32 -S -c main.c
  */
 
 int main(int argc, char *argv[]) {
