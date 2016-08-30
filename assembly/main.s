@@ -14,12 +14,12 @@ L0$pb:
 	movl	12(%ebp), %ecx
 	movl	8(%ebp), %edx
 	leal	L_.str-L0$pb(%eax), %eax
-	movl	$12345, %esi            ## imm = 0x3039
+	movl	$24, %esi
 	movl	$0, -8(%ebp)
 	movl	%edx, -12(%ebp)
 	movl	%ecx, -16(%ebp)
 	movl	%eax, (%esp)
-	movl	$12345, 4(%esp)         ## imm = 0x3039
+	movl	$24, 4(%esp)
 	movl	%esi, -20(%ebp)         ## 4-byte Spill
 	calll	_printf
 	movl	$61453, %ecx            ## imm = 0xF00D

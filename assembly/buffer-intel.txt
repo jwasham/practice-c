@@ -1,0 +1,80 @@
+
+buffer:     file format mach-o-x86-64
+
+
+Disassembly of section .text:
+
+0000000100000f50 <_main>:
+   100000f50:	55                   	push   rbp
+   100000f51:	48 89 e5             	mov    rbp,rsp
+   100000f54:	48 83 ec 40          	sub    rsp,0x40
+   100000f58:	48 8b 05 b1 00 00 00 	mov    rax,QWORD PTR [rip+0xb1]        # 100001010 <_main+0xc0>
+   100000f5f:	48 8b 08             	mov    rcx,QWORD PTR [rax]
+   100000f62:	48 89 4d f8          	mov    QWORD PTR [rbp-0x8],rcx
+   100000f66:	c7 45 cc 00 00 00 00 	mov    DWORD PTR [rbp-0x34],0x0
+   100000f6d:	c6 45 d0 0a          	mov    BYTE PTR [rbp-0x30],0xa
+   100000f71:	c6 45 d3 0d          	mov    BYTE PTR [rbp-0x2d],0xd
+   100000f75:	c6 45 f7 2a          	mov    BYTE PTR [rbp-0x9],0x2a
+   100000f79:	48 8b 00             	mov    rax,QWORD PTR [rax]
+   100000f7c:	48 3b 45 f8          	cmp    rax,QWORD PTR [rbp-0x8]
+   100000f80:	0f 85 0b 00 00 00    	jne    100000f91 <_main+0x41>
+   100000f86:	b8 0d 10 0b 00       	mov    eax,0xb100d
+   100000f8b:	48 83 c4 40          	add    rsp,0x40
+   100000f8f:	5d                   	pop    rbp
+   100000f90:	c3                   	ret    
+   100000f91:	e8 00 00 00 00       	call   100000f96 <_main+0x46>
+
+Disassembly of section __TEXT.__stubs:
+
+0000000100000f96 <__TEXT.__stubs>:
+   100000f96:	ff 25 7c 00 00 00    	jmp    QWORD PTR [rip+0x7c]        # 100001018 <_main+0xc8>
+
+Disassembly of section __TEXT.__stub_helper:
+
+0000000100000f9c <__TEXT.__stub_helper>:
+   100000f9c:	4c 8d 1d 65 00 00 00 	lea    r11,[rip+0x65]        # 100001008 <_main+0xb8>
+   100000fa3:	41 53                	push   r11
+   100000fa5:	ff 25 55 00 00 00    	jmp    QWORD PTR [rip+0x55]        # 100001000 <_main+0xb0>
+   100000fab:	90                   	nop
+   100000fac:	68 00 00 00 00       	push   0x0
+   100000fb1:	e9 e6 ff ff ff       	jmp    100000f9c <_main+0x4c>
+
+Disassembly of section __TEXT.__unwind_info:
+
+0000000100000fb8 <__TEXT.__unwind_info>:
+   100000fb8:	01 00                	add    DWORD PTR [rax],eax
+   100000fba:	00 00                	add    BYTE PTR [rax],al
+   100000fbc:	1c 00                	sbb    al,0x0
+   100000fbe:	00 00                	add    BYTE PTR [rax],al
+   100000fc0:	00 00                	add    BYTE PTR [rax],al
+   100000fc2:	00 00                	add    BYTE PTR [rax],al
+   100000fc4:	1c 00                	sbb    al,0x0
+   100000fc6:	00 00                	add    BYTE PTR [rax],al
+   100000fc8:	00 00                	add    BYTE PTR [rax],al
+   100000fca:	00 00                	add    BYTE PTR [rax],al
+   100000fcc:	1c 00                	sbb    al,0x0
+   100000fce:	00 00                	add    BYTE PTR [rax],al
+   100000fd0:	02 00                	add    al,BYTE PTR [rax]
+   100000fd2:	00 00                	add    BYTE PTR [rax],al
+   100000fd4:	50                   	push   rax
+   100000fd5:	0f 00 00             	sldt   WORD PTR [rax]
+   100000fd8:	34 00                	xor    al,0x0
+   100000fda:	00 00                	add    BYTE PTR [rax],al
+   100000fdc:	34 00                	xor    al,0x0
+   100000fde:	00 00                	add    BYTE PTR [rax],al
+   100000fe0:	97                   	xchg   edi,eax
+   100000fe1:	0f 00 00             	sldt   WORD PTR [rax]
+   100000fe4:	00 00                	add    BYTE PTR [rax],al
+   100000fe6:	00 00                	add    BYTE PTR [rax],al
+   100000fe8:	34 00                	xor    al,0x0
+   100000fea:	00 00                	add    BYTE PTR [rax],al
+   100000fec:	03 00                	add    eax,DWORD PTR [rax]
+   100000fee:	00 00                	add    BYTE PTR [rax],al
+   100000ff0:	0c 00                	or     al,0x0
+   100000ff2:	01 00                	add    DWORD PTR [rax],eax
+   100000ff4:	10 00                	adc    BYTE PTR [rax],al
+   100000ff6:	01 00                	add    DWORD PTR [rax],eax
+   100000ff8:	00 00                	add    BYTE PTR [rax],al
+   100000ffa:	00 00                	add    BYTE PTR [rax],al
+   100000ffc:	00 00                	add    BYTE PTR [rax],al
+   100000ffe:	00 01                	add    BYTE PTR [rcx],al

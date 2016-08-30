@@ -1,0 +1,32 @@
+
+main.o:     file format mach-o-i386
+
+
+Disassembly of section .text:
+
+00000000 <_main>:
+   0:	55                   	push   %ebp
+   1:	89 e5                	mov    %esp,%ebp
+   3:	56                   	push   %esi
+   4:	83 ec 24             	sub    $0x24,%esp
+   7:	e8 00 00 00 00       	call   c <_main+0xc>
+   c:	58                   	pop    %eax
+   d:	8b 4d 0c             	mov    0xc(%ebp),%ecx
+  10:	8b 55 08             	mov    0x8(%ebp),%edx
+  13:	8d 80 42 00 00 00    	lea    0x42(%eax),%eax
+  19:	be 18 00 00 00       	mov    $0x18,%esi
+  1e:	c7 45 f8 00 00 00 00 	movl   $0x0,-0x8(%ebp)
+  25:	89 55 f4             	mov    %edx,-0xc(%ebp)
+  28:	89 4d f0             	mov    %ecx,-0x10(%ebp)
+  2b:	89 04 24             	mov    %eax,(%esp)
+  2e:	c7 44 24 04 18 00 00 	movl   $0x18,0x4(%esp)
+  35:	00 
+  36:	89 75 ec             	mov    %esi,-0x14(%ebp)
+  39:	e8 c2 ff ff ff       	call   0 <_main>
+  3e:	b9 0d f0 00 00       	mov    $0xf00d,%ecx
+  43:	89 45 e8             	mov    %eax,-0x18(%ebp)
+  46:	89 c8                	mov    %ecx,%eax
+  48:	83 c4 24             	add    $0x24,%esp
+  4b:	5e                   	pop    %esi
+  4c:	5d                   	pop    %ebp
+  4d:	c3                   	ret    
