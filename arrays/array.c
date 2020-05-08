@@ -98,13 +98,7 @@ void jarray_print(JArray *arrptr) {
 int jarray_capacity(JArray *arrptr) { return arrptr->capacity; }
 
 bool jarray_is_empty(JArray *arrptr) {
-  int is_empty = 0;
-
-  if (arrptr->size == 0) {
-    is_empty = 1;
-  }
-
-  return is_empty;
+  return arrptr->size == 0;
 }
 
 int jarray_at(JArray *arrptr, int index) {
