@@ -30,14 +30,8 @@ void jarray_upsize(JArray *arrptr) {
   int old_capacity = arrptr->capacity;
   int new_capacity = jarray_determine_capacity(old_capacity);
 
-  int *new_data = (int *)malloc(sizeof(int) * new_capacity);
+  int *new_data = (int *)realloc(arrptr->data, sizeof(int) * new_capacity);
   check_address(new_data);
-
-  for (int i = 0; i < old_capacity; ++i) {
-    *(new_data + i) = *(arrptr->data + i);
-  }
-
-  free(arrptr->data);
 
   arrptr->data = new_data;
   arrptr->capacity = new_capacity;
@@ -52,14 +46,8 @@ void jarray_downsize(JArray *arrptr) {
   }
 
   if (new_capacity != old_capacity) {
-    int *new_data = (int *)malloc(sizeof(int) * new_capacity);
+    int *new_data = (int *)realloc(arrptr->data, sizeof(int) * new_capacity);
     check_address(new_data);
-
-    for (int i = 0; i < arrptr->size; ++i) {
-      *(new_data + i) = *(arrptr->data + i);
-    }
-
-    free(arrptr->data);
 
     arrptr->data = new_data;
     arrptr->capacity = new_capacity;
