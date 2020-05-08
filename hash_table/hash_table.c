@@ -50,7 +50,7 @@ void print_debug(hash_table* table) {
 }
 
 bool exists(const hash_table* table, const char* key) {
-  int index = hash(key, kTableSize);
+  int index = hash(key, table->size);
   int original_index = index;
   bool found = false;
 
@@ -69,7 +69,7 @@ bool exists(const hash_table* table, const char* key) {
 }
 
 void add(hash_table* table, const char* key, const key_value* object) {
-  int index = hash(key, kTableSize);
+  int index = hash(key, table->size);
   int original_index = index;
   bool found = false;
   int dummyIndex = -1;
