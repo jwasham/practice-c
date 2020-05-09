@@ -1,3 +1,4 @@
+#include <string.h>
 // vector implementation
 
 JArray *jarray_new(int capacity) {
@@ -117,12 +118,7 @@ void jarray_insert(JArray *arrptr, int index, int value) {
   jarray_resize_for_size(arrptr, arrptr->size + 1);
 
   // shift items to the right
-
-  int end_index = arrptr->size - 1;
-
-  for (int i = end_index + 1; i > index; --i) {
-    *(arrptr->data + i) = *(arrptr->data + i - 1);
-  }
+  memmove(arrptr->data + index + 1, arrptr->data + index, (arrptr->size - index) * sizeof(int));
 
   // insert item
   *(arrptr->data + index) = value;
@@ -154,10 +150,7 @@ void jarray_delete(JArray *arrptr, int index) {
 
   jarray_resize_for_size(arrptr, arrptr->size - 1);
 
-  int end_index = arrptr->size - 1;
-  for (int i = index; i < end_index; ++i) {
-    *(arrptr->data + i) = *(arrptr->data + i + 1);
-  }
+  memmove(arrptr->data + index, arrptr->data + index + 1, (arrptr->size - index) * sizeof(int));
 
   --(arrptr->size);
 }
