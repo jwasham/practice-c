@@ -17,10 +17,13 @@ hash_table* create_table(const int size) {
 void destroy_table(hash_table* table) {
 
   for(int i = 0; i < table->size; ++i) {
-    if (table->data[i]) {
-      free(table->data[i]->key);
-      free(table->data[i]->value);
-      free(table->data[i]);
+    key_value* kv = table->data[i];
+    while (kv) {
+      key_value* next = kv->next;
+      free(kv->key);
+      free(kv->value); 
+      free(kv);
+      kv = next;
     }
   }
 
@@ -50,71 +53,37 @@ void print_debug(hash_table* table) {
 }
 
 bool exists(const hash_table* table, const char* key) {
-  int index = hash(key, table->size);
-  int original_index = index;
-  bool found = false;
-
-  while (table->data[index] != NULL) {
-    if (strcmp(table->data[index]->key, key) == 0) {
-      found = true;
-      break;
-    }
-    index = (index + 1) % table->size;
-    if (index == original_index) {
-      break;
-    }
-  }
-
-  return found;
+  key_value* kv = get(table, key);
+  return kv != NULL;
 }
 
 void add(hash_table* table, const char* key, const key_value* object) {
   int index = hash(key, table->size);
-  int original_index = index;
-  bool found = false;
-  int dummyIndex = -1;
 
-  while (table->data[index] != NULL) {
-    if (strcmp(table->data[index]->key, key) == 0) {
-      found = true;
-      break;
-    } else if (strcmp(table->data[index]->key, kDummy) == 0) {
-      dummyIndex = index;
-    }
-    index = (index + 1) % table->size;
-    if (index == original_index) {
+  key_value* kv = get(table, key);
+  if (kv != NULL) {
+      free(kv->value);
+      kv->value = strdup(object->value);
       return;
-    }
   }
 
-  if (! found && dummyIndex != -1) {
-    // use dummy index to insert
-    index = dummyIndex;
-  }
-
-  if (table->data[index] == NULL) {
-    table->data[index] = malloc(sizeof(key_value));
-  } else {
-    free(table->data[index]->key);
-    free(table->data[index]->value);
-  }
-
-  table->data[index]->key = strdup(object->key);
-  table->data[index]->value = strdup(object->value);
+  kv = malloc(sizeof(key_value)); 
+  kv->key = strdup(object->key);
+  kv->value = strdup(object->value);
+  kv->next = table->data[index];
+  table->data[index] = kv;
 }
 
-char* get(const hash_table* table, const char* key) {
+key_value* get(const hash_table* table, const char* key) {
   int index = hash(key, table->size);
-  int original_index = index;
 
-  while (table->data[index] != NULL) {
-    if (strcmp(table->data[index]->key, key) == 0) {
-      return table->data[index]->value;
+  key_value* kv = table->data[index];
+  while (kv) {
+    if (strcmp(kv->key, key) == 0) {
+        return kv;
     }
-    index = (index + 1) % table->size;
-    if (index == original_index) {
-      break;
-    }
+
+    kv = kv->next;
   }
 
   return NULL;
@@ -122,19 +91,24 @@ char* get(const hash_table* table, const char* key) {
 
 void delete(hash_table* table, const char* key) {
   int index = hash(key, table->size);
-  int original_index = index;
+  key_value* prekv = NULL;
 
-  while (table->data[index] != NULL) {
+  key_value* kv = table->data[index];
+  while (kv) {
     if (strcmp(table->data[index]->key, key) == 0) {
-      free(table->data[index]->key);
-      free(table->data[index]->value);
-      table->data[index]->key = strdup(kDummy);
-      table->data[index]->value = strdup("");
-      break;
+      // kv is head of linker.
+      if (prekv == NULL) {
+        table->data[index] = kv->next;
+      } else {
+        prekv->next = kv->next;
+      }
+
+      free(kv->key);
+      free(kv->value);
+      free(kv);
     }
-    index = (index + 1) % table->size;
-    if (index == original_index) {
-      return;
-    }
+
+    prekv = kv;
+    kv = kv->next;
   }
 }

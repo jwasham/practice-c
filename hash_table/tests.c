@@ -26,16 +26,16 @@ void test_add_get() {
   key_value me = {"Maine", "Augusta"};
   add(states, "Maine", &me);
 
-  char* capital1 = get(states, "Louisiana");
-  assert(strcmp(capital1, "Baton Rouge") == 0);
+  key_value* capital1 = get(states, "Louisiana");
+  assert(strcmp(capital1->value, "Baton Rouge") == 0);
 
   // add LA again, with new capital
   key_value la2 = {"Louisiana", "New Orleans"};
   add(states, "Louisiana", &la2);
 
   // now capital should be Nawlins
-  char* capital2 = get(states, "Louisiana");
-  assert(strcmp(capital2, "New Orleans") == 0);
+  key_value* capital2 = get(states, "Louisiana");
+  assert(strcmp(capital2->value, "New Orleans") == 0);
 
   destroy_table(states);
 }

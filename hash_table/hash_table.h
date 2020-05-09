@@ -13,6 +13,7 @@ char* kDummy = "<dummy>";
 typedef struct KeyValue {
   char* key;
   char* value;
+  struct KeyValue* next;
 } key_value;
 
 typedef struct HashTable {
@@ -33,7 +34,7 @@ bool exists(const hash_table* table, const char* key);
 // Add the given key and object to hash table. If key exists, update the value.
 void add(hash_table* table, const char* key, const key_value* object);
 // Returns the value associated with the given key, or NULL if it doesn't exist
-char* get(const hash_table* table, const char* key);
+key_value* get(const hash_table* table, const char* key);
 // Removes the value associated with key from the table.
 void delete(hash_table* table, const char* key);
 
