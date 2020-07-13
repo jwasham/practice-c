@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(threads_exp_proj)
+project(forking)
 
 set(SOURCE_FILES main.c)
-add_executable(threads_exp ${SOURCE_FILES})
+add_executable(forking ${SOURCE_FILES})
