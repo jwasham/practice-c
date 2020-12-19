@@ -25,7 +25,7 @@ void jarray_destroy(JArray *arrptr);
 // and resizes to accommodate.
 void jarray_resize_for_size(JArray *arrptr, int candidate_size);
 // Determines the actual capacity (in terms of the power of growth factor)
-// required to accomodate a given capacity.
+// required to accommodate a given capacity.
 int jarray_determine_capacity(int capacity);
 // Increases the array size to size determined by growth factor
 void jarray_upsize(JArray *arrptr);
