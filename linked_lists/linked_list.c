@@ -284,11 +284,10 @@ void jforward_list_remove(JForwardList *jlist, int value) {
     if (current->data == value) {
       if (prev) {
         prev->next = current->next;
+        jlist->tail = current == jlist->tail ? prev : jlist->tail;
       } else {
         jlist->head = current->next;
-      }
-      if (current->next == NULL) {
-        jlist->tail = current;
+        jlist->tail = current == jlist->tail ? NULL : jlist->tail;
       }
       free(current);
       break;
