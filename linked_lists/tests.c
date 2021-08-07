@@ -289,6 +289,7 @@ void test_remove() {
   assert(jforward_list_size(tester) == 2);
   assert(jforward_list_value_at(tester, 0) == 2);
   assert(jforward_list_value_at(tester, 1) == 4);
+  assert(jforward_list_back(tester) == 4);
 
   jforward_list_remove(tester, 2);
   assert(jforward_list_size(tester) == 1);
